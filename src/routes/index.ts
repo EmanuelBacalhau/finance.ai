@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify'
+import { authGoogleController } from '../container'
+import { authRouter } from './authRouter'
 
 export function router(app: FastifyInstance) {
-  app.get('/', async (request, reply) => {
-    reply.send({ message: 'hello world' })
-  })
+  authRouter(app)
 }

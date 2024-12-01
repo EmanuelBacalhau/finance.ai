@@ -12,9 +12,7 @@ export class AuthWithGoogleController {
     try {
       const user = await this.authWithGoogleService.execute(request, app)
 
-      const token = app.jwt.sign({ id: user.id })
-
-      reply.send({ token })
+      reply.send(user)
     } catch (error) {
       console.log(error)
     }

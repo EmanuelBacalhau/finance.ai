@@ -55,7 +55,6 @@ src/
 ├── controllers/
 │   └── auth/
 │       └── google.ts
-├── env.ts
 ├── repositories/
 │   ├── interfaces/
 │   │   └── i-user-repository.ts
@@ -68,7 +67,8 @@ src/
 │   └── auth/
 │       └── google.ts
 ├── container.ts
-└── main.ts
+├── env.ts
+└── server.ts
 ```
 
 ### 🚀 Como Usar

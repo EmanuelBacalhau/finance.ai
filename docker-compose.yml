@@ -1,0 +1,10 @@
+services:
+  finance.ai:
+    container_name: finance.ai
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRESQL_USERNAME: finance
+      POSTGRESQL_PASSWORD: finance
+      POSTGRESQL_DATABASE: finance

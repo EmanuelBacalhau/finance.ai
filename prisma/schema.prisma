@@ -6,3 +6,66 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id           String        @id @default(uuid())
+  name         String
+  amount       Float         @default(0.0)
+  avatarUrl    String        @map("avatar_url")
+  email        String        @unique
+  password     String?
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime?     @updatedAt @map("updated_at")
+  transactions Transaction[]
+
+  @@index([email])
+  @@map("users")
+}
+
+enum TransactionType {
+  DEPOSIT
+  EXPENSE
+  INVESTMENT
+}
+
+enum TransactionCategory {
+  HOUSING
+  FOOD
+  TRANSPORT
+  HEALTH
+  ENTERTAINMENT
+  SALARY
+  EDUCATION
+  OTHER
+}
+
+enum TransactionPaymentMethod {
+  CASH
+  CREDIT_CARD
+  DEPOSIT_CARD
+  TRANSFER
+  PIX
+  OTHER
+}
+
+model Transaction {
+  id            String                   @id @default(uuid())
+  userId        String                   @map("user_id")
+  title         String
+  amount        Int
+  type          TransactionType
+  category      TransactionCategory
+  paymentMethod TransactionPaymentMethod @map("payment_method")
+  date          DateTime
+  description   String?
+  createdAt     DateTime                 @default(now()) @map("created_at")
+  updatedAt     DateTime?                @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([type])
+  @@index([category])
+  @@index([paymentMethod])
+  @@map("transactions")
+}
